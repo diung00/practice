@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Article</title>
+</head>
+<body>
+<h1>Write Article</h1>
+<a th:href="@{/articles/{id} (id=${article.id})}">Back to Article</a>
+<form th:action="@{/articles/{id}/update (id=${article.id})}" method="post" >
+    <div>
+        <label for="title-input">Title: </label>
+        <input type="text" id="title-input" name="title" th:value="${article.title}">
+    </div>
+    <div>
+        <label for="content-area">Content: </label>
+        <textarea id="content-area" name="content">[[${article.content}]]</textarea>
+    </div>
+    <div>
+        <label for="writer-input">Writer</label>
+        <input type="text" id="writer-input" name="writer" th:value="${article.writer}">
+    </div>
+
+    <input type="submit" value="Update">
+
+</form>
+
+</body>
+</html>

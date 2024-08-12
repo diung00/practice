@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${article.title}]]</title>
+</head>
+<body>
+<h1>[[${article.title}]]</h1>
+<a href="/articles">Back to Articles</a>
+<a th:href="@{/articles/{id}/update (id=${article.id})}">Update</a>
+<form th:action="@{/articles/{id}/delete (id=${article.id})}" method="post">
+    <input type="submit" value="Delete">
+</form>
+<hr>
+<!-- 게시글 영역 -->
+<p>[[${article.writer}]]</p>
+<p>
+    [[${article.content}]]
+</p>
+<hr>
+<!-- 댓글 영역 -->
+<h2>Comments</h2>
+<!--noi viet cmt-->
+<form th:action="@{/articles/{id}/comments/create (id=${article.id})}" method="post">
+    <div>
+        <label for="comment-input">Comment:</label>
+        <input type="text" id="comment-input" name="content">
+    </div>
+    <div>
+        <label for="writer-input">Writer:</label>
+        <input type="text" id="writer-input" name="writer">
+    </div>
+    <input type="submit" value="Writer Comment">
+</form>
+
+<!--noi hien thi cmt-->
+<div th:if="${article.comments.isEmpty()}">
+    <p>no cmt...</p>
+</div>
+<div
+th:unless="${article.comments.isEmpty()}"
+th:each="comment: ${article.comments}"
+>
+    <h3>[[${comment.writer}]]: [[${comment.content}]]</h3>
+</div>
+
+</body>
+</html>
